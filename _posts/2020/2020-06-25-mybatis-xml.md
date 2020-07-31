@@ -21,11 +21,31 @@ excerpt: sql mybatis
 
 <foreach  collection="monthIds" index="index" item="key">
 
-#{key}
+​      #{key}
 
 </foreach>
 
 </if>
+
+## when otherwise
+
+```html
+<if test="repairContent !=null and repairContent !='' ">
+			and 
+			<foreach item="key" collection="repairContent.split(',')" open="(" separator="or" close=")" >
+			 <choose>
+                    <when test='key == "NONE" '>
+                        f.repair_content is null
+                    </when>
+                    <otherwise>
+	                     f.repair_content =#{key} 
+	                </otherwise>
+                    </choose>
+		   </foreach>
+       </if>
+```
+
+
 
 ## key Entity
 
